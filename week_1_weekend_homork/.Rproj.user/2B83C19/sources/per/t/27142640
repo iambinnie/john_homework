@@ -1,0 +1,27 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1562457536013.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2333069976",
+    "id" : "27142640",
+    "lastKnownWriteTime" : 1562571864,
+    "last_content_update" : 1562571864133,
+    "path" : "~/CodeClan_Work/week_1_weekend_homork/temp.Rmd",
+    "project_path" : "temp.Rmd",
+    "properties" : {
+        "chunk_output_type" : "inline",
+        "cursorPosition" : "58,24",
+        "scrollLine" : "57",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

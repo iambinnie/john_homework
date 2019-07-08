@@ -1,0 +1,7 @@
+"0","genderList<- map(game_of_thrones$characters,""gender"")"
+"0","male_count <- length(genderList[1] == ""Male"")"
+"0","male_count"
+"1","[1]"
+"1"," 1"
+"1","
+"

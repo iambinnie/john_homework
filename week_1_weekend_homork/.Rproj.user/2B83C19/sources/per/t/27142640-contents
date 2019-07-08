@@ -1,0 +1,61 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+temp
+
+```
+The first thing I notice about this dataset is that it doesnt show in tabular form by simply tyoing in "temp" and running the command, whereas the "beer" command does. Why is this?
+
+```{r}
+View(temp)
+```
+
+The above command does show in more tabular form, however, the dat adoesn't include unit of measurement, or the destination in which the measurements were recorded. Is this a holiday destination, taken from another planet or a a recording of temps from a lab exeriment.a source would also be beneficial, to allow comparision of discrepancies between similar datasets.
+
+```{r}
+?temp
+```
+
+The above confirms that it is infact a matrix which contains the maximum temp for eac month in scotland from 1910 to 2015.
+
+I believe this format to be a matrix of collected vectors, after further investigation of the previous command the vectoer format was also confirmed.. I can check this by using the following command:
+```{r}
+class(temp)
+```
+it is indeed stored as a matrix.
+
+I can further investigate the dataset using:
+```{r}
+str(temp)
+```
+no year is attributed to the row elemnt...how do I add this?
+
+can a calculate the averages using a loop based on name?
+```{r}
+names(temp)
+```
+ I can calculate the column sums and means usong the following:
+```{r}
+colSums(temp)
+```
+ 
+```{r}
+colMeans(temp)
+```
+
+reduve the number of dp?
+```{r}
+?colMeans
+```
+
+decided to use the following to match the format data inputted to ethe calculation:
+```{r}
+round(colMeans(temp), digits = 1)
+```
+```{r}
+plot(temp[1,], yrange = xlab = month.name, ylab = temp)
+```
+

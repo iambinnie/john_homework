@@ -1,0 +1,27 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1562456879527.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2503687914",
+    "id" : "7D581724",
+    "lastKnownWriteTime" : 1562573654,
+    "last_content_update" : 1562573654435,
+    "path" : "~/CodeClan_Work/week_1_weekend_homork/beer.Rmd",
+    "project_path" : "beer.Rmd",
+    "properties" : {
+        "chunk_output_type" : "inline",
+        "cursorPosition" : "80,0",
+        "scrollLine" : "77",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

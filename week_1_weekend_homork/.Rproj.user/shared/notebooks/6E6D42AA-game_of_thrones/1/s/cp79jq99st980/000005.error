@@ -1,0 +1,1 @@
+{"frames":[],"message":"Error in sum(game_of_thrones[game_of_thrones$characters$gender == \"Male\"]) : \n  invalid 'type' (list) of argument\n"}

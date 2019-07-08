@@ -1,0 +1,82 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(CodeClanData)
+```
+
+```{r}
+beer
+
+```
+
+the first thing I otice abot this data set is taht not all countries ar included. I also notice that country is contained within  brackets rather than contained within its own data field. This would allow separation and identification of country of origin to be easier. 
+a source would also be beneficial, to allow comparision of discrepancies between similar datasets.
+Also, brewer sub categorie could ba added to allow brand sun categories to be distinguished.
+
+Alos there is no definition of quantities per measurement for percent, calories and carbohydrates. Although these seem to be univerrsal it makes it difficult to assess whether any mean, max or min values would be trustworthy, for this reason.
+
+I think this probably shown in a data frame already. I will test this by doing the following:
+```{r}
+class(beer)
+```
+
+I can also further ivestigate he data using: 
+
+```{r}
+str(beer)
+```
+
+
+This command confirms that it is indeed saved as a data frame.
+
+I can calculate the mean percent value by doing the following:
+```{r}
+mean(beer[,3])#column 3 contains the percent data
+mean(beer$percent)
+```
+This shows the mean percent value for all beers within that column.
+
+mean calories:
+```{r}
+mean(beer[,4])#column 4 contains the calorie data
+```
+returning error. I believe this is because the column is set to take only a numeric)
+whereas the calculation returns a decimal value (double).
+```{r}
+?mean
+
+```
+
+```{r}
+mean(beer[,4], trim = 0, na.rm = TRUE)
+```
+this looks like a correct value to be returned. As this is an intiial investigation I wont spend time manually checking the data at present.
+
+calculate mean for carbohydtrates:
+```{r}
+mean(beer$carbohydrates)
+```
+
+Again this looks like a correct value.
+
+Sub category investigation:
+budweiser
+```{r}
+plot(beer$percent)
+```
+
+```{r}
+plot(beer$calories)
+```
+
+```{r}
+map_df(beer, sort)
+```
+
+```{r}
+map(beer, length)
+```
+

@@ -1,0 +1,3 @@
+"0","male_characters <- count[game_of_thrones$characters$gender == ""Male""]"
+"2","Error: object 'count' not found
+"

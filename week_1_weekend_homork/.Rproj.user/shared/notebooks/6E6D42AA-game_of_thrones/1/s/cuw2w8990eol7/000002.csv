@@ -1,0 +1,4 @@
+"0","male_characters <- sum(count(game_of_thrones[game_of_thrones$characters$gender == ""Male""]))"
+"2","Error in count(game_of_thrones[game_of_thrones$characters$gender == ""Male""]) : 
+  could not find function ""count""
+"

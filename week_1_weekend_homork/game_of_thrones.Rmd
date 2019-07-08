@@ -1,0 +1,51 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+game_of_thrones
+
+```
+
+The frst thing I notice about this dataset is that is, again, stored in a different format to the other 2 datasets. I belive this to be stored as a list or nested list. I cna check this by running the folowing command:
+```{r}
+class(game_of_thrones)
+```
+
+it is indeed stored as a list.
+further investigationof the dataset can be achieved by:
+
+```{r}
+str(game_of_thrones)
+```
+this shows that he data is based on the book rather than the TV series.
+
+how many characters are male V female?
+```{r}
+male_characters <- sum(game_of_thrones[game_of_thrones$characters$gender == "Male"])
+```
+```{r}
+male_characters <- sum(count(game_of_thrones[game_of_thrones$characters$gender == "Male"]))
+```
+```{r}
+male_characters <- count[game_of_thrones$characters$gender == "Male"]
+```
+```{r}
+length(game_of_thrones[game_of_thrones$characters[[1]]$gender == "Male"])
+```
+```{r}
+as.matrix(game_of_thrones)
+```
+
+```{r}
+genderList<- map(game_of_thrones$characters,"gender")
+male_count <- length(genderList[1] == "Male")
+male_count
+
+```
+
+```{r}
+genderList
+```
+
