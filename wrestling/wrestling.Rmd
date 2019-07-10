@@ -1,0 +1,92 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(keyring)
+library(RPostgreSQL)
+```
+
+```{r}
+######LOCAL CONNECTION DETAILS#######
+username <- key_get(service = "postgresql_username", keyring = "local")
+password <- key_get(service="postgresql_password", keyring = "local")
+keyring_lock(keyring = "local")
+```
+
+```{r}
+######REMOTE CONNECTION DETAILS#######
+keyring_unlock(keyring = "remote")
+remote_username <- key_get(service = "postgresql_username", keyring = "remote")
+remote_password <- key_get(service="postgresql_password", keyring = "remote")
+keyring_lock(keyring = "remote")
+```
+
+```{r}
+local_db_conn <- dbConnect(drv = PostgreSQL(max.con = 2), user = username, password = password, dbname = "wrestling", host = 'localhost')
+```
+
+```{r}
+remote_db_conn <- dbConnect(drv = PostgreSQL(max.con = 2), user = remote_username, password = remote_password, dbname = "mvhbdgdk", host = 'manny.db.elephantsql.com')
+```
+
+
+```{r}
+dbGetQuery(conn = local_db_conn,
+           "SELECT * FROM wrestlers")
+```
+
+id= int
+born = varchar
+name = varchar
+gender = varchar
+win_percent = real
+total_matches = int
+
+```{r}
+dbGetQuery(conn = remote_db_conn,
+           "SELECT * FROM wrestlers")
+```
+
+EXTENSION:
+UK wrestlers:
+```{r}
+dbGetQuery(conn = local_db_conn, 
+           "SELECT * FROM wrestlers WHERE born = 'United Kingdom'");
+```
+
+Japanese, over 40 matches:
+
+```{r}
+dbGetQuery(conn = local_db_conn, 
+           "SELECT * FROM wrestlers WHERE born = 'Japan' AND total_matches > 40");
+```
+
+50-60% win rqte
+```{r}
+dbGetQuery(conn = local_db_conn, 
+           "SELECT * FROM wrestlers WHERE win_percent BETWEEN 50 AND 60");
+```
+
+names beginning with X:
+```{r}
+dbGetQuery(conn = local_db_conn, 
+           "SELECT * FROM wrestlers WHERE name LIKE 'X%'");
+```
+
+```{r}
+dbGetQuery(conn = local_db_conn, 
+           "SELECT * FROM wrestlers WHERE born LIKE 'I%'");
+```
+
+```{r}
+dbGetQuery(conn = local_db_conn, 
+           "SELECT * FROM wrestlers WHERE born NOT LIKE 'I%'");
+```
+
+```{r}
+dbDisconnect(conn = local_db_conn)
+dbDisconnect(conn = remote_db_conn)
+```
+
