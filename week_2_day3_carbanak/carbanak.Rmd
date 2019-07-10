@@ -1,0 +1,18 @@
+---
+title: "carbanak_homework"
+author: "john binnie"
+date: "10/07/2019"
+output: html_document
+---
+Carbanak Homework - Cybersecurity
+
+1. What is Spear Phishing?
+Fraudulently sneding emails form a trusted source in order to have the revceiver divulge sensitive information.
+
+2.What is malware?
+software which is designed to infiltrate a comuter asystem and cause damge or gain access to the system.
+
+3.access to compromised systems was purchased onthe dark web. these systems were then targeted by in order to gain further access adn implant malware and trojans. This was then spread though the corporation by spear phishing throught he users crededntials.
+
+4.What could the employees have done to prevent malware being installed?
+Possibly could have been more aware of opening emails from untrusted sources inthe first instance.
