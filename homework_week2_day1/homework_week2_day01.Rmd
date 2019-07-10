@@ -17,7 +17,7 @@ api_key
 ```
 
 ```{r}
-response_1 <- GET(api_key[1], 
+response_1<- GET(api_key[1], 
                 query = list(
                   t = "Avatar"
                 ))
@@ -57,7 +57,9 @@ response_5 <- content(response_5)
 ```
 
 ```{r}
-list_of_5 <- c(response_1, response_2, response_3, response_4, response_5)
-data.frame(list_of_5)
+list_of_5 <- cbind(response_1, response_2, response_3, response_4, response_5)
+list_of_5
+#data.frame(list_of_5)
+#as.matrix(list_of_5)
 ```
 
