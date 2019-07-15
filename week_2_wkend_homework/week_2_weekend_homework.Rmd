@@ -1,0 +1,106 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+```{r}
+library(httr)
+library(keyring)
+library(RPostgreSQL)
+```
+
+table row details:
+employees: 200 rows
+feedbacks: 60 rows
+teams: 11 rows
+
+set keyring for indico api:
+
+```{r}
+keyring_create("indico_api")
+```
+
+
+```{r}
+key_set(service = "indico_api_key" , keyring = "indico_api")
+keyring_lock(keyring = "indico_api")
+```
+
+indico connection
+```{r}
+keyring_unlock(keyring = "indico_api")
+indico_api <- key_get(service = "indico_api_key", keyring = "indico_api")
+keyring_lock(keyring = "indico_api")
+```
+indico url:
+```{r}
+url <- "https://apiv2.indico.io/emotion"
+```
+
+test connectin for test data:
+```{r}
+params <- list(
+  api_key = indico_api,
+  data = 'I love writing R code!'
+)
+
+url <- 'https://apiv2.indico.io/sentiment'
+
+response <- POST(url, query = params)
+
+content(response)
+```
+
+
+create connection:
+```{r}
+######LOCAL CONNECTION DETAILS#######
+keyring_unlock(keyring = "local")
+username <- key_get(service = "postgresql_username", keyring = "local")
+password <- key_get(service="postgresql_password", keyring = "local")
+keyring_lock(keyring = "local")
+```
+
+```{r}
+local_db_conn <- dbConnect(drv = PostgreSQL(max.con = 2), user = username, password = password, dbname = "acme_employees", host = 'localhost')
+```
+
+test connection and explore data:
+
+```{r}
+dbGetQuery(conn = local_db_conn,
+           "SELECT * FROM employees")
+```
+
+```{r}
+dbGetQuery(conn = local_db_conn,
+           "SELECT * FROM feedbacks")
+```
+
+```{r}
+dbGetQuery(conn = local_db_conn,
+           "SELECT * FROM teams")
+```
+
+```{r}
+emp_team_feedback <- dbGetQuery(conn = local_db_conn,
+           "SELECT DISTINCT(f.message), f.date, e.first_name, e.last_name, e.email, t.name AS team_name
+          FROM (employees AS e INNER JOIN feedbacks AS f
+          ON e.id = f.employee_id) INNER JOIN teams AS t ON e.team_id = t.id
+          ")
+emp_team_feedback
+```
+
+```{r}
+emp_team_feedback_df <- data.frame(emp_team_feedback)
+emp_team_feedback_df
+```
+
+
+
+```{r}
+dbDisconnect( conn = "local")
+
+```
+
