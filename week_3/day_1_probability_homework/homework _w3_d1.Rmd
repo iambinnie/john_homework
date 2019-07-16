@@ -1,0 +1,80 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+1. If I roll a six-sided dice once, what is the probability of getting a number less than 5?
+
+2/3
+
+2. How many outcomes are there in the sample space of an experiment in which we toss three dice?
+```{r}
+library(prob)
+library(gtools)
+6*6*6
+
+S <- rolldie(3, makespace = TRUE)
+size_s <- nrow(S)
+size_s
+S
+
+
+```
+
+3. Continuing with the three dice rolling experiment:
+
+what is the probability of getting a total of the three dice equal to 5, 6 or 7?
+```{r}
+31 / 216
+```
+
+
+```{r}
+
+total_equals_5_6_7 <- subset(S, X1 + X2 + X3 == 5 | X1 + X2 + X3 == 6 | X1 + X2 + X3 == 7)
+
+total_equals_5_6_7
+
+```
+
+
+how many outcomes lie within this event total_equals_5_6_7 (i.e. how large is the event space)?
+31
+
+We worked out the size of the sample space for this experiment in question 2. How do the sizes of the sample and event spaces relate to the probability from part i?
+prbababilty if the chance of the subset occuring within the main set. ie subset divided by full set.
+
+4. Five chairs are in a room along with five people of differing height. The people sit down randomly on the chairs. What is the probability that they sit in order of decreasing height, left to right?
+
+use permutation for this:
+```{r}
+heights <- c(1:5)
+height_perms <- permutations(n=5, r = 5, v = heights, repeats.allowed = FALSE)
+nrow(height_perms)
+prob <- 1 / 120
+prob
+```
+
+5. I roll six dice: i. what is the probability I see the numbers 6, 5, 4, 3, 2 and 1 in order on the dice, left to right? ii. what is the probability I see one each of the numbers 6, 5, 4, 3, 2 and 1 on the dice regardless of order?
+
+use permutation for part1
+```{r}
+nums <- c(1, 2, 3, 4, 5, 6)
+roll_perms <- permutations(n =36 , r = 6, v = nums, repeats.allowed = FALSE)
+nrow(roll_perms)
+```
+
+
+
+use combination for part2
+```{r}
+roll_combos <- combinations(n = 36, r = 6, v = nums, repeats.allowed = FALSE)
+```
+
+```{r}
+choose(36, 6)
+```
+
+6. If I draw a single card from a 52-card deck, and it is black, what is the probability that its suit is spades? 
+
+1 in 2
