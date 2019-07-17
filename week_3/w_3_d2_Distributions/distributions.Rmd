@@ -1,0 +1,175 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(prob)
+sample_space <- tosscoin(3)
+sample_space
+
+install.packages("e1071")
+library(e1071)
+```
+
+```{r}
+outcome_probs <- rep(times= nrow(sample_space), x = 1/ nrow(sample_space))
+outcome_label <- paste(sample_space$toss1, sample_space$toss2, sample_space$toss3)
+sample_space <- cbind(sample_space, outcome_label, outcome_probs)
+
+barplot(sample_space$outcome_probs, names.arg = outcome_label, ylim = c(0, 0.15), xlab = "Outcome", ylab = "p(Outcome)")
+```
+
+```{r}
+is_head <-  data.frame(sample_space[c("toss1", "toss2", "toss3")] == "H")
+num_heads <- is_head$toss1 + is_head$toss2 + is_head$toss3
+
+is_head <- cbind(is_head, num_heads)
+#is_head
+
+num_heads_table <- table(is_head$num_heads)
+num_heads_prob_table <- num_heads_table / sum(num_heads_table)
+num_heads_prob_table
+
+barplot(num_heads_prob_table, xlab = "Num. Heads", ylab = "p(num heads)")
+```
+
+```{r}
+library(CodeClanData)
+
+air_con_sales <- read.csv("AirConSales.csv", colClasses = c("character", "integer"))
+air_con_sales$date <- as.Date(air_con_sales$Date, format = "%m%d%Y")
+air_con_sales
+
+```
+
+TASK:
+frequency table for aircn sales units sold. convert to probablility and visualise in barplot
+
+```{r}
+sales_units <- hist(air_con_sales$Units_sold)
+sales_units
+
+```
+ANSWER:
+```{r}
+sales_freq_table <- table(air_con_sales$Units_sold)
+sales_prob_table <- sales_freq_table /sum(sales_freq_table)
+
+barplot(sales_freq_table)
+barplot(sales_prob_table)
+```
+
+MEAN:
+
+```{r}
+mean(air_con_sales$Units_sold)
+```
+
+MEDIAN:
+
+```{r}
+sorted_sales <- sort(air_con_sales$Units_sold)
+sorted_sales
+
+nrow(air_con_sales)
+
+median_sales <- sorted_sales[19]
+median_sales
+
+median(air_con_sales$Units_sold)
+```
+
+MODE:
+```{r}
+get_mode <- function(data){
+  table_names <- names(table(data))
+  return(table_names[table(data) == max(table(data))])
+}
+
+get_mode(air_con_sales$Units_sold)
+```
+
+OUTLIERS:
+
+```{r}
+outliers <- boxplot.stats(air_con_sales$Units_sold)$out
+outliers
+```
+
+```{r}
+values_with_outliers <- air_con_sales$Units_sold
+length(values_with_outliers)
+
+values_without_outliers <- values_with_outliers[values_with_outliers < 23]
+length(values_without_outliers)
+```
+
+MEAN:
+```{r}
+mean(values_with_outliers, trim = 0.05)
+mean(values_without_outliers)
+```
+
+MEDIAN:
+```{r}
+median(values_with_outliers)
+median(values_without_outliers)
+```
+
+MODE:
+```{r}
+get_mode(values_with_outliers)
+get_mode(values_without_outliers)
+```
+
+UNIMODAL:
+
+```{r}
+unimodal <- read.csv(("unimodal.csv"))
+#str(unimodal)
+hist(unimodal$x)
+```
+
+BIMODAL:
+```{r}
+bimodal <- read.csv(("bimodal.csv"))
+hist(bimodal$x, breaks = 25)
+```
+
+```{r}
+mean(bimodal$x)
+median(bimodal$x)
+
+```
+
+SKEWS:
+
+```{r}
+left_skew <- read.csv("leftskew.csv")
+hist(left_skew$x, breaks = 25)
+
+mean(left_skew$x)
+median(left_skew$x)
+
+binned_left_skew <- cut(left_skew$x, breaks = 25)
+get_mode(binned_left_skew)
+```
+
+```{r}
+library(e1071)
+
+skewness(left_skew$x, type = 1)
+
+right_skew <- read.csv("rightskew.csv")
+hist(right_skew$x)
+
+skewness(right_skew$x)
+```
+
+```{r}
+skewness(air_con_sales$Units_sold)
+```
+
+SPREADS:
+

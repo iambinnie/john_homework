@@ -1,0 +1,70 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+cars_mpg <- subset(mtcars, select = "mpg")
+min_mpg <- min(cars_mpg)
+max_mpg <- max(cars_mpg)
+breaks <- seq(from = min_mpg, to = max_mpg, length = 11)
+cars_mpg_binned <- cut(cars_mpg$mpg, breaks = breaks, right = FALSE, include.lowest = TRUE)
+#cars_mpg_binned
+barplot(table(cars_mpg_binned))
+```
+
+```{r}
+cars_mpg <- subset(mtcars, select = "mpg")
+hist(cars_mpg$mpg, breaks = 10)
+```
+
+TASK:
+```{r}
+state_x77_df <- data.frame(state.x77)
+str(state_x77_df)
+```
+
+```{r}
+#(help(state.x77)
+#??state.x77
+state_x77_df
+```
+
+
+```{r}
+state_murder <- subset(state_x77_df, select = "Murder")
+state_murder
+```
+
+```{r}
+hist(state_murder$Murder, breaks = 10)
+```
+
+```{r}
+min_murder <- min(state_murder)
+max_murder <- max(state_murder)
+breaks <- seq(from = min_murder, to = max_murder, length = 10)
+state_murder_binned <- cut(state_murder$murder, breaks = breaks, right = FALSE, include.lowest = TRUE)
+#cars_mpg_binned
+barplot(table(state_murder_binned))
+```
+
+x2 TEST:
+
+```{r}
+proportions <- c(0.05, 0.1, 0.15, 0.2, 0.2, 0.2, 0.1)
+names(proportions) <- c("M", "Tu", "W", "Th", "F", "Sa", "Su")
+proportions
+
+observed <- c(20, 28, 48, 56, 58, 66, 32)
+chisq.test(x = observed, p = proportions)
+```
+
+```{r}
+expected <- proportions * sum(observed)
+expected
+
+chi_2 <- sum((observed - expected) ^2 /expected)
+chi_2
+```
+

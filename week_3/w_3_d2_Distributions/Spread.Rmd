@@ -1,0 +1,115 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+Spread : how wide the distibution is
+
+```{r}
+jobs<- read.csv("TyrellCorpJobs.csv")
+head(jobs)
+minmax <- range(jobs$Salary)
+diff(minmax)
+
+hist(jobs$Salary)
+```
+
+```{r}
+account_salaries <- jobs[jobs$Position == "Accounting", "Salary"]
+manager_salaries <- jobs[jobs$Position == "Management", "Salary"]
+breaks <- seq(20000, 100000, by = 2500)
+hist(account_salaries, col = rgb(1,0,0, alpha = 1/2), xlim = c(20000, 100000), breaks = breaks, xlab = "Salary")
+hist(manager_salaries, col = rgb(0,1,0, alpha = 1/2), xlim = c(20000, 100000), breaks = breaks, add = TRUE)
+```
+
+```{r}
+diff(range(account_salaries))
+diff(range(manager_salaries))
+```
+
+CUMULATIVE DISTRIBUTION:
+
+```{r}
+nums<- seq(1,10, by = 1)
+cumsum(nums)
+```
+
+```{r}
+table_manager_salraies <- table(cut(manager_salaries, breaks = breaks))
+df_manger <- data.frame(table_manager_salraies)
+colnames(df_manger) <- c("salary", "freq")
+df_manger$rel_freq <- df_manger$freq /sum(df_manger$freq)
+df_manger$cum_rel_freq <- cumsum(df_manger$rel_freq)
+df_manger
+lower_bounds <- 20000 + as.integer(df_manger$salary) * 2500
+plot(x= lower_bounds, y = df_manger$cum_rel_freq, xlab = "Salary", ylab = "CDF", type = "s")
+```
+
+```{r}
+probs <- c(0, 0.25, 0.5, 0.75, 1.0)
+quartiles <- quantile(manager_salaries, probs = probs)
+quartiles
+```
+
+inter quartile range (IQR = Q3 -Q1)
+```{r}
+summary(manager_salaries)
+IQR(manager_salaries)
+```
+
+TASK:
+```{r}
+set.seed(42)
+distribution_1 <- append(rnorm(n = 100, mean = 5, sd = 10), rnorm(n = 200, mean = 5, sd = 1))
+distribution_2 <- runif(n = 1000, min = -30, max = 30)
+
+summary(distribution_1)
+summary(distribution_2)
+```
+
+```{r}
+boxplot(distribution_1, horizontal = true)
+boxplot(distribution_2)
+```
+Dist_1 will be havily centralised. with a range of small occurence values on either side.
+
+distr_2 will be very evenly spread, with a single modality based in the centre(ANSWER: no peaks)), with no outliers.
+```{r}
+hist(distribution_1)
+hist(distribution_2)
+```
+
+SKEW IN A BOX PLOT:
+
+```{r}
+heavily_right_skew <- read.csv("heavily_right_skewed.csv")
+
+library(e1071)
+skewness(heavily_right_skew$x)
+
+```
+```{r}
+par(mfrow = c(2, 1))
+par(mar = c(1,4,1,1))
+boxplot(heavily_right_skew$x, horizontal = TRUE, ylim = c(0, 0.3))
+par(mar = c(4,4,2,1))
+hist(heavily_right_skew$x, xlim = c(0, 0.3), main = "", breaks = 20)
+```
+
+```{r}
+boxplot(Salary ~ Position, data = jobs, horizontal = TRUE)
+```
+
+VARIANCE:
+```{r}
+x <- c(3,1,9,4,12)
+sample_var_x <- var(x)
+var(account_salaries)
+var(manager_salaries)
+
+sd(account_salaries)
+sd(manager_salaries)
+```
+
+
+

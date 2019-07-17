@@ -1,0 +1,118 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+data(anscombe)
+?anscombe
+str(anscombe)
+
+```
+
+1. x1, x2, x3, x4, y1, y2, y3, y4
+2. find mean and variance 
+```{r}
+mean(anscombe$x1)
+mean(anscombe$x2)
+mean(anscombe$x3)
+mean(anscombe$x4)
+mean(anscombe$y1)
+mean(anscombe$y2)
+mean(anscombe$y3)
+mean(anscombe$y4)
+```
+```{r}
+?var
+```
+
+```{r}
+var(anscombe$x1)
+var(anscombe$x2)
+var(anscombe$x3)
+var(anscombe$x4)
+var(anscombe$y2)
+var(anscombe$y3)
+var(anscombe$y4)
+```
+
+3. all x datsetes seem quite similar as do the y's. dont using only mena and variance can be misleading though. it is important to visualise the data for this reason.
+
+4. Create box plots for the eight data sets and interpret what you see. Perhaps calculate IQR() and skewness() for each set. Should you change your conclusions from above?
+```{r}
+boxplot(anscombe$x1)
+```
+
+```{r}
+boxplot(anscombe$x2)
+```
+
+```{r}
+boxplot(anscombe$x3)
+```
+
+```{r}
+boxplot(anscombe$x4)
+```
+
+```{r}
+boxplot(anscombe$ y1)
+```
+
+```{r}
+boxplot(anscombe$y2)
+```
+
+```{r}
+boxplot(anscombe$y3)
+```
+
+```{r}
+boxplot(anscombe$y4)
+```
+
+```{r}
+boxplot(anscombe)
+```
+
+first three values all seem to be very similiar.
+the 4th x value apears to be made up of a single vlalue range.
+y1 seems to unimodal, with most of the values concentrtated in a small range within the cente.
+y2 is right skwewed with one outlier.
+y3 qnd y4 are quite similar althought he median differs in each.
+
+```{r}
+skewness(anscombe$x1)
+skewness(anscombe$x2)
+skewness(anscombe$x3)
+skewness(anscombe$x4)
+skewness(anscombe$y1)
+skewness(anscombe$y2)
+skewness(anscombe$y3)
+skewness(anscombe$y4)
+
+```
+
+```{r}
+IQR(anscombe$x1)
+IQR(anscombe$x2)
+IQR(anscombe$x3)
+IQR(anscombe$x4)
+IQR(anscombe$y1)
+IQR(anscombe$y2)
+IQR(anscombe$y3)
+IQR(anscombe$y4)
+```
+
+
+```{r}
+
+```
+
+5. Anscombe intended his eight sets to be interpreted as four sets of (x,y) data: (x1,y1), (x2,y2), (x3,y3) and (x4,y4). Plot y1-vs-x1, y2-vs-x2, y3-vs-x3 and y4-vs-x4 using the plot() function and comment on what you observe.
+
+```{r}
+plot(anscombe$x1, anscombe$y1)
+```
+
+
