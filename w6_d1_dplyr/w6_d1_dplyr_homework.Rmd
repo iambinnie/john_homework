@@ -1,0 +1,111 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+drinks_content <- read.csv("data/starbucks_drinkMenu_expanded.csv")
+```
+```{r}
+nrow(drinks_content)
+```
+
+```{r}
+ncol(drinks_content)
+```
+
+```{r}
+dim(drinks_content)
+```
+
+```{r}
+names(drinks_content)
+```
+
+```{r}
+head(drinks_content, 5)
+```
+
+```{r}
+tail(drinks_content, 5)
+```
+
+```{r}
+mean(drinks_content$Calories)
+```
+
+```{r}
+rnorm(drinks_content$Calories)
+```
+
+```{r}
+var(drinks_content$Calories)
+```
+
+```{r}
+summary(drinks_content$Calories)
+```
+
+```{r}
+library(ggplot2)
+```
+
+
+```{r}
+ggplot(drinks_content, aes(Calories)) + 
+  geom_histogram(binwidth = 20) + 
+  ggtitle("Distribution of Calories in 'Tall' Starbucks Drinks")
+```
+
+```{r}
+boxplot(drinks_content$Calories)
+```
+
+```{r}
+outliers <- boxplot(drinks_content$Calories, plot = FALSE)$out
+print(outliers)
+```
+
+```{r}
+drinks_content[which(drinks_content$Calories %in% outliers),]
+```
+
+```{r}
+drinks_content_nooutlier <- drinks_content[-which(drinks_content$Calories %in% outliers),]
+boxplot(drinks_content_nooutlier$Calories)
+```
+
+```{r}
+drinks <- select(drinks_content_nooutlier, Beverage_category, Beverage, Beverage_prep, Calories)
+drinks
+```
+```{r}
+is.na(drinks$Calories)
+```
+
+```{r}
+espresso_drinks <- filter(drinks, Beverage_category == "Classic Espresso Drinks")
+espresso_drinks
+```
+
+```{r}
+drink_calories <- mutate(drinks_content_nooutlier, calorie_diff = 135 - Calories)
+drink_calories
+```
+
+```{r}
+drinks_grouped <- group_by(drink_calories, Calories)
+drinks_grouped
+```
+
+```{r}
+summarise(drinks_grouped, count = n())
+```
+
+```{r}
+outliers <- boxplot(drinks_content$Calories, plot = FALSE)$out %>%
+  drinks_content_nooutlier <- drinks_content[-which(drinks_content$Calories %in% outliers),] %>%
+  
+```
+
