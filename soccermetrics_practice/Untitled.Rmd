@@ -1,0 +1,33 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+cno
+```{r}
+if (!require("devtools")) install.packages("devtools")
+devtools::install_github("jogall/soccermatics", dependencies = TRUE)
+
+library(soccermatics)
+#library(soccermetrics)
+```
+
+```{r}
+statsbomb %>%
+  filter(team.name == "Argentina") %>%
+  soccerShotmap(theme = "grass", colGoal = "yellow", colMiss = "blue", legend = T)
+```
+
+```{r}
+statsbomb %>%
+  filter(team.name == "France") %>%
+  soccerShotmap(theme = "dark")
+
+```
+
+```{r}
+statsbomb %>%
+  filter(team.name == "Argentina") %>%
+  soccerPassmap(fill = "lightblue", arrow = "r",
+                title = "Argentina (vs France, 30th June 2018)")
+```
+

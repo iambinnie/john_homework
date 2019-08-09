@@ -1,0 +1,66 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(ggplot2)
+library(CodeClanData)
+
+ggplot(qb_revenue_breakdown) +
+  aes(x = Year, y = Revenue, fill = Product) +
+  labs(
+    title = "Revenue by year",
+    x = "\nYear",
+    y = "Revenue\n (£)"
+  ) +
+  geom_col() 
+```
+
+```{r}
+library(ggplot2)
+library(CodeClanData)
+
+ggplot(qb_revenue_breakdown) +
+  aes(x = Year, y = Revenue, fill = Product) +
+  geom_col() 
+```
+
+```{r}
+revenue_and_costs <- subset(qb_monthly_sales, Cashflow != "Kwikbit Unit 1 Sales")
+
+ggplot(revenue_and_costs) +
+  aes(x = Date, y = Amount, colour = Cashflow, group = Cashflow) +
+  labs(
+    title = "KwickBit Sales",
+    x = "Date", 
+    y = "Amount\n (£)"
+  ) +
+  geom_line() 
+```
+
+```{r}
+ggplot(qb_competitors) +
+  aes(x = Year, y = Revenue, fill = Company) +
+  labs(
+    title = "Competitor Analysis\n",
+    x = "\nYear",
+    y = "Revenue\n(£)"
+  ) +
+#scale_y_continuous(labels = scales::dollar_format(prefix = "£"))
+scale_y_continuous(labels = scales::comma) +
+  geom_area() 
+```
+
+```{r}
+ggplot(qb_competitors) +
+  aes(x = Year, y = Revenue, colour = Company) +
+  labs(
+    title = "Competitor Analysis",
+    x = "\nYear",
+    y = "Revenue (£)\n"
+  ) +
+  geom_line() +
+  geom_point() 
+```
+

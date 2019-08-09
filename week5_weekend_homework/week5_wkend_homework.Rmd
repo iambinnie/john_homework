@@ -1,0 +1,99 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(readxl)
+gb_data1 <- read_excel("green_bindle_consulting.xlsx", sheet = 1)
+gb_data1
+```
+
+```{r}
+library(ggplot2)
+ggplot(gb_data1) + 
+  aes(x= Year, y = Value, colour = Item) + 
+geom_line()
+```
+
+```{r}
+gb_data2 <- read_excel("green_bindle_consulting.xlsx", sheet = 2)
+gb_data2
+```
+
+```{r}
+ggplot(gb_data2) + 
+  aes(x= Year, y = Value, colour = Status) + 
+geom_line()
+```
+
+```{r}
+gb_data3 <- read_excel("green_bindle_consulting.xlsx", sheet = 3)
+gb_data3
+```
+
+```{r}
+ggplot(gb_data3) + 
+  aes(x = Item, y = Value) + 
+  geom_rect(x = Item)
+```
+
+```{r}
+gb_data4 <- read_excel("green_bindle_consulting.xlsx", sheet = 4)
+gb_data4
+```
+
+```{r}
+library(dplyr)
+ggplot(gb_data4) + 
+  aes(x = Date, fill = as.factor(Asset_Class)) + 
+geom_bar(position = "dodge")
+  #geom_bar(position = "fill")
+```
+
+```{r}
+gb_data5 <- read_excel("green_bindle_consulting.xlsx", sheet = 5)
+gb_data5
+```
+
+```{r}
+ggplot(gb_data5) + 
+  aes(x = Basis, y = TPs, fill = Item) + 
+  geom_col()
+```
+
+```{r}
+gb_data6 <- read_excel("green_bindle_consulting.xlsx", sheet = 6)
+gb_data6
+```
+
+```{r}
+ggplot(gb_data6) + 
+  aes(x = Scenario, y = Balance) + 
+  geom_col()
+  #geom_line() +
+#geom_smooth(method = loess)
+```
+
+```{r}
+gb_data7 <- read_excel("green_bindle_consulting.xlsx", sheet = 7)
+gb_data7
+```
+
+```{r}
+ggplot(gb_data7) + 
+  aes(x = Year, y = Cashflow, colour = Status) + 
+  geom_line()
+```
+
+```{r}
+gb_data8 <- read_excel("green_bindle_consulting.xlsx", sheet = 8)
+gb_data8
+```
+
+```{r}
+ggplot(gb_data8) + 
+  aes(x = Size, fill = as.factor(Word), legend = FALSE) +
+geom_bar(position = "fill")
+```
+
