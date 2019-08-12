@@ -1,0 +1,43 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+tweets <- read.csv("code_clan_tweets.csv")
+tweets
+```
+
+```{r}
+dim(tweets)
+names(tweets)
+
+```
+
+```{r}
+boxplot(tweets$favorite_count)
+```
+
+
+Summarise the number of likes (stored in favorite_count) that CodeClan tweets have got. Don’t summarise when it was a quoted tweet (is_quote variable).
+```{r}
+no_is_quote <- filter(tweets, is_quote != TRUE)
+no_is_quote
+```
+
+Summarise the mean number of retweets (retweet_count), by the type of platform that was used to tweet (source).
+```{r}
+tweets_grouped_source <- group_by(no_is_quote, source)
+tweets_grouped_source
+```
+
+```{r}
+summarise(tweets_grouped_source, count = n())
+```
+
+Count the number of likes by media type, and arrange them from most likes to least.
+```{r}
+arrange(tweets_grouped_source, desc(media_type))
+```
+

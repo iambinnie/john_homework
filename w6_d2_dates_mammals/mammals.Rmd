@@ -1,0 +1,71 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+install.packages("RSQLite")
+```
+
+
+```{r}
+library(dplyr)
+library(dbplyr)
+library(lubridate)
+library(RSQLite)
+
+date1 <- ymd_hms("2017-04-22 22:01:18")
+date2 <- ymd_hms("2001-11-07 10:09:56")
+
+mammals <- DBI::dbConnect(RSQLite::SQLite(), "mammals.sqlite")
+
+plots <- tbl(mammals, sql("SELECT * FROM plots"))
+species <- tbl(mammals, sql("SELECT * FROM species"))
+surveys <- tbl(mammals, sql("SELECT * FROM surveys"))
+```
+
+```{r}
+year(date1)
+month(date1, label = TRUE, abbr = FALSE)
+mday(date1)
+yday(date1)
+wday(date1)
+```
+
+```{r}
+next_fortnight <- date1 + ddays(14)
+next_fortnight
+```
+
+```{r}
+previous_decade <- date2 - dyears(10)
+previous_decade
+```
+
+```{r}
+this_year <- as_datetime(today())
+this_year
+```
+
+```{r}
+interval_years <- interval(this_year, previous_decade)
+interval_years
+```
+
+```{r}
+nyc_date1 <- ymd_hms(date1, tz = "America/New_York")
+nyc_date2 <- ymd_hms(date2, tz = "America/New_York")
+
+nyc_date1
+nyc_date2
+```
+
+```{r}
+View(mammals)
+```
+
+```{r}
+survey_tibble <- mutate(full_date = make_datetime(year, month, day, hour, minute))
+survey_tibble
+```
+
