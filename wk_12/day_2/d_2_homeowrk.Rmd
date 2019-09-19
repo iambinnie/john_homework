@@ -1,0 +1,39 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+data(msleep)
+```
+```{r}
+glimpse(msleep)
+msleep
+?msleep
+
+msleep %>%
+  filter(!is.na(sleep_total))
+```
+
+```{r}
+mean_now <- mean(msleep$sleep_total)
+mean_now
+```
+
+```{r}
+t.test(msleep$sleep_total, mu = 7, alternative = "greater")
+```
+
+```{r}
+
+c_vore <- msleep %>%
+  filter(msleep$vore == "carni")
+c_vore
+
+h_vore <- msleep %>%
+  filter(msleep$vore == "herbi")
+h_vore
+t.test(x = c_vore$sleep_total, y = h_vore$sleep_total, alternative = "less")
+```
+

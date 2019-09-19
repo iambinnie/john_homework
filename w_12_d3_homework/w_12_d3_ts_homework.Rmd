@@ -1,0 +1,58 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+Question 1
+Load in the sunspots data and check it is a time series. Get the start, end, periodicity, frequency and cycle information. Get the start and end times, periodicity, frequency, and anything else you need to understand your data.
+
+```{r}
+data(sunspots)
+
+head(sunspots)
+class(sunspots)
+str(sunspots)
+
+start(sunspots)
+end(sunspots)
+#periodicity(sunspots)
+frequency(sunspots)
+cycle(sunspots)
+plot.ts(sunspots)
+```
+
+
+
+Question 4
+Decompose the time series and look at the different components. Make sure you use the right type of decomposition. Then take a look at your different components. What does it all tell you? Hint: you might need to subset some of your data in order to see patterns more clearly
+
+```{r}
+sun_decomp <- decompose(sunspots, type = "additive")
+plot(sun_decomp)
+```
+
+
+Question 3
+Calculate the rolling average of your sunspots data, and plot it. Hint: You’ll need to choose the window you want to average over to make sure it’s representative of this particular time series
+
+```{r}
+library(tidyquant)
+library(zoo)
+library(TTR)
+rolling_average <- rollapply(sunspots, width = 60, align = "right", FUN = mean, na.rm = TRUE)
+plot(rolling_average)
+
+#rolling_log <- log(rolling_average)
+#plot(rolling_log)
+```
+
+Question 5
+Check if your data is stationary using the appropriate plots. Do you have stationary data? If no, make the data stationary.
+```{r}
+#log
+
+#difference
+
+#plot
+```
+

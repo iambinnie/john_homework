@@ -1,0 +1,32 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+```{r}
+library(dplyr)
+library(ggplot2)
+library(leaflet)
+library(lubridate)
+library(shiny)
+library(shinythemes)
+library(stringr)
+library(tidyverse)
+library(StatsBombR)
+library(soccermatics)
+library(shinydashboard)
+library(shinyWidgets)
+```
+
+```{r}
+data("statsbomb")
+
+#statsbomb
+class(statsbomb)
+
+
+```
+
+```{r}
+view(statsbomb$tactics.lineup[[1]])
+```
+

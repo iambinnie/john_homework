@@ -2,4 +2,75 @@
 title: "R Notebook"
 output: html_notebook
 ---
+Question 1
+Load in the women_in_gov csv file. Make sure you remove all metadata from the top.
+```{r}
+library(tidyverse)
+
+women_in_gov <- read.csv("data/women_in_gov.csv", skip = 4)
+women_in_gov
+```
+
+```{r}
+names(women_in_gov)
+```
+Question 2
+Some of the column names contain spaces and numbers. Fix the column names using the make.names function.
+```{r}
+
+```
+
+Question 3
+We have some columns in the data that don’t really need to be there. Confirm that the X64, Indicator.Name and Indicator.Code have the same values for all observations. If they do, remove those columns.
+
+```{r}
+unique(women_in_gov$Indicator.Name)
+unique(women_in_gov$Indicator.Code)
+unique(women_in_gov$X1964)
+```
+
+```{r}
+women_in_gov_clean <- women_in_gov %>% select(-Indicator.Name, -Indicator.Code, -X1964)
+women_in_gov_clean
+```
+
+Question 4
+Now we have got rid of the extra columns, we can rename the remaining country columns to something more tidy. Rename the Country.Name and Country.Code variables to country and code.
+
+```{r}
+colnames(women_in_gov_clean) [1] = "country"
+colnames(women_in_gov_clean)[2] = "code"
+women_in_gov_clean
+```
+
+Question 5
+Think back to last week where we talked about wide vs long format. As the data is in wide format, it’s pretty clear to see we have a lot of missing values. Reshape the data from wide to long format, so that for each country the year column becomes a row.
+
+```{r}
+test_conv1 <- gather(women_in_gov_clean)
+test_conv1
+#this didnt work, need to add extra parameters
+```
+
+
+```{r}
+test_conv1 <- gather(women_in_gov_clean, key = year, value = prop_women, X1960:X2018)
+test_conv1
+```
+
+```{r}
+women_in_gov_long <- gather(women_in_gov_clean, key = year, value = prop_women, X1960:X2018)
+women_in_gov_long
+```
+
+Question 6
+You’ll notice your prop_women column contains missing values. Let’s do a few things. First, let’s count how many missing values you have. Then check how many different missing values you have (e.g. how many unique ones do you have). Then decide how you will impute. Will you insert average imputation values, most common imputation values, or use the multiple imputation method? Explain your decision. Then fix the missing values.
+
+```{r}
+unique(women_in_gov_clean$prop_women)
+```
+```{r}
+women_in_gov_long %>%
+summarise(count = sum(is.na(prop_women)))
+```
 

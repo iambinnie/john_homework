@@ -1,0 +1,17 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+```{r}
+library(tidyverse)
+library(GGally)
+library(modelr)
+```
+
+```{r}
+data <- read_csv("kc_house_data.csv")
+head(data)
+```
+

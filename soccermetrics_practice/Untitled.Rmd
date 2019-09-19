@@ -8,6 +8,8 @@ if (!require("devtools")) install.packages("devtools")
 devtools::install_github("jogall/soccermatics", dependencies = TRUE)
 
 library(soccermatics)
+library(dplyr)
+library(StatsBombR)
 #library(soccermetrics)
 ```
 
@@ -29,5 +31,29 @@ statsbomb %>%
   filter(team.name == "Argentina") %>%
   soccerPassmap(fill = "lightblue", arrow = "r",
                 title = "Argentina (vs France, 30th June 2018)")
+```
+```{r}
+statsbomb %>%
+  filter(team.name == "Argentina") %>%
+  soccerPassmap(fill = "lightblue", arrow = "r",
+                title = "Argentina (vs France, 30th June 2018)")
+```
+
+```{r}
+statsbomb %>%
+  filter(type.name == "Pass" & team.name == "France") %>% 
+  soccerHeatmap(x = "location.x", y = "location.y",
+                title = "France (vs Argentina, 30th June 2016)", 
+                subtitle = "Passing heatmap")
+```
+
+```{r}
+data(statsbomb)
+statsbomb %>%
+   filter(type.name == "Pressure" & team.name == "France") %>%
+   soccerHeatmap(x = "location.x", y = "location.y", xBins = 6, yBins = 3,
+                arrow = "r",
+               title = "France (vs Argentina, 30th June 2016)",
+               subtitle = "Defensive pressure heatmap")
 ```
 
